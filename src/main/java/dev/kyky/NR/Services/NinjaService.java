@@ -25,4 +25,8 @@ public class NinjaService {
         return ninjaRepository.findById(id);
     }
 
+    public List<Ninja> getMany(String name) {
+        return ninjaRepository.findByName(name);
+    }
+
 }

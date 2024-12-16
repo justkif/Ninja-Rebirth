@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.kyky.NR.Exceptions.NinjaNotFoundException;
@@ -38,6 +39,15 @@ public class NinjaController {
             throw new NinjaNotFoundException();
         }
         return ninjaGetOne;
+    }
+
+    @GetMapping("/search")
+    List<Ninja> getMany(@RequestParam String name) {
+        List<Ninja> ninjaGetMany = ninjaService.getMany(name);
+        if (ninjaGetMany.isEmpty()) {
+            throw new NinjaNotFoundException();
+        }
+        return ninjaGetMany;
     }
     
 }
