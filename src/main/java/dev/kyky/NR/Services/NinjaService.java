@@ -29,4 +29,8 @@ public class NinjaService {
         return ninjaRepository.findByName(name);
     }
 
+    public void createOne(Ninja ninja) {
+        ninjaRepository.save(ninja);
+    }
+
 }
