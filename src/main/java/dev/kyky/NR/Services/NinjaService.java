@@ -1,6 +1,7 @@
 package dev.kyky.NR.Services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -19,5 +20,9 @@ public class NinjaService {
     public List<Ninja> getAll() {
         return ninjaRepository.findAll();
     }
-    
+
+    public Optional<Ninja> getOne(Integer id) {
+        return ninjaRepository.findById(id);
+    }
+
 }
