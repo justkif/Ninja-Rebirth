@@ -7,3 +7,10 @@ CREATE TABLE IF NOT EXISTS Ninja (
     skill4 VARCHAR(255) NOT NULL,
     version INT     
 );
+
+CREATE TABLE IF NOT EXISTS "User" (   
+    id SERIAL PRIMARY KEY,
+    username varchar(20) UNIQUE NOT NULL,
+    password varchar(255) NOT NULL,
+    version INT
+);
