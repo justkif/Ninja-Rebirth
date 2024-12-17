@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS Ninja (
+CREATE TABLE IF NOT EXISTS "ninja" (
     id SERIAL PRIMARY KEY,
     name VARCHAR(20) UNIQUE NOT NULL,        
     skill1 VARCHAR(255) NOT NULL,                
@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS Ninja (
     version INT     
 );
 
-CREATE TABLE IF NOT EXISTS "User" (   
+CREATE TABLE IF NOT EXISTS "user" (   
     id SERIAL PRIMARY KEY,
     username varchar(20) UNIQUE NOT NULL,
     password varchar(255) NOT NULL,
