@@ -1,7 +1,6 @@
 package dev.kyky.NR.Models;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Version;
 
 import jakarta.validation.constraints.NotEmpty;
 
