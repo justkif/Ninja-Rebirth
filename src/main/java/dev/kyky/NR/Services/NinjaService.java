@@ -33,4 +33,8 @@ public class NinjaService {
         ninjaRepository.save(ninja);
     }
 
+    public void deleteOne(Integer id) {
+        ninjaRepository.deleteById(id);
+    }
+
 }
