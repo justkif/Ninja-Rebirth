@@ -23,10 +23,7 @@ public record Ninja(
     String skill3,
 
     @NotEmpty 
-    String skill4,
-
-    @Version 
-    Integer version
+    String skill4
     
 ) {
 

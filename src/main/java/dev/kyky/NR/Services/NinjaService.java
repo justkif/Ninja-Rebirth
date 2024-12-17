@@ -41,8 +41,7 @@ public class NinjaService {
             ninja.skill1(),
             ninja.skill2(),
             ninja.skill3(),
-            ninja.skill4(),
-            ninjaGetOne.version()
+            ninja.skill4()
         );
         ninjaRepository.save(updatedNinja);
     }
