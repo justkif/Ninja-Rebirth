@@ -26,7 +26,7 @@ public class NinjaService {
     }
 
     public List<Ninja> getMany(String name) {
-        return ninjaRepository.findByName(name);
+        return ninjaRepository.findBySimilarName(name);
     }
 
     public void createOne(Ninja ninja) {
