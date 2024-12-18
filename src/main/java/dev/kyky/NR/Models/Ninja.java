@@ -26,4 +26,15 @@ public record Ninja(
     
 ) {
 
+    public Ninja updateOne(Ninja ninja) {
+        return new Ninja(
+            this.id, 
+            ninja.name, 
+            ninja.skill1, 
+            ninja.skill2, 
+            ninja.skill3, 
+            ninja.skill4
+        );
+    }
+
 }

@@ -34,16 +34,7 @@ public class NinjaService {
     }
 
     public void updateOne(Ninja ninja, Integer id) {
-        Ninja ninjaGetOne = ninjaRepository.findById(id).get();
-        Ninja updatedNinja = new Ninja(
-            ninjaGetOne.id(),
-            ninja.name(),
-            ninja.skill1(),
-            ninja.skill2(),
-            ninja.skill3(),
-            ninja.skill4()
-        );
-        ninjaRepository.save(updatedNinja);
+        ninjaRepository.save(ninjaRepository.findById(id).get().updateOne(ninja));
     }
 
     public void deleteOne(Integer id) {
