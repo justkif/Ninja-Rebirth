@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import dev.kyky.NR.Exceptions.NinjaNotFoundException;
 import dev.kyky.NR.Models.Ninja;
 import dev.kyky.NR.Services.NinjaService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/")
@@ -58,12 +59,12 @@ public class NinjaController {
     
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
-    void createOne(@RequestBody Ninja ninja) {
+    void createOne(@Valid @RequestBody Ninja ninja) {
         ninjaService.createOne(ninja);
     }
 
     @PutMapping("/{id}")
-    void updateOne(@RequestBody Ninja ninja, @PathVariable Integer id) {
+    void updateOne(@Valid @RequestBody Ninja ninja, @PathVariable Integer id) {
         Optional<Ninja> ninjaGetOne = ninjaService.getOne(id);
         if (ninjaGetOne.isEmpty()) {
             throw new NinjaNotFoundException();
