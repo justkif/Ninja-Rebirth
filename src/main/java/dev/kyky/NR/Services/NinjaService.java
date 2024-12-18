@@ -29,8 +29,12 @@ public class NinjaService {
         return ninjaRepository.findBySimilarName(name);
     }
 
-    public void createOne(Ninja ninja) {
+    public boolean createOne(Ninja ninja) {
+        if (!ninjaRepository.findByExactName(ninja.name()).isEmpty()) {
+            return false;
+        }
         ninjaRepository.save(ninja);
+        return true;
     }
 
     public void updateOne(Ninja ninja, Integer id) {

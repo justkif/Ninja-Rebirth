@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.kyky.NR.Exceptions.NinjaConflictException;
 import dev.kyky.NR.Exceptions.NinjaNotFoundException;
 import dev.kyky.NR.Models.Ninja;
 import dev.kyky.NR.Services.NinjaService;
@@ -60,7 +61,9 @@ public class NinjaController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
     void createOne(@Valid @RequestBody Ninja ninja) {
-        ninjaService.createOne(ninja);
+        if (!ninjaService.createOne(ninja)) {
+            throw new NinjaConflictException();
+        }
     }
 
     @PutMapping("/{id}")
