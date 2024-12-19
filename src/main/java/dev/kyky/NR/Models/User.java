@@ -17,4 +17,12 @@ public record User(
     
 ) {
 
+    public User setHashedPassword(String password) {
+        return new User(
+            this.id,
+            this.username,
+            password
+        );
+    }
+
 }
