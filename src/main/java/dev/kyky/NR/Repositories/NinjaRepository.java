@@ -9,10 +9,10 @@ import java.util.Optional;
 
 public interface NinjaRepository extends ListCrudRepository<Ninja, Integer> {
 
-    @Query("SELECT * FROM Ninja WHERE name ILIKE CONCAT('%', :name, '%')")
+    @Query("SELECT * FROM ninja WHERE name ILIKE CONCAT('%', :name, '%')")
     List<Ninja> findBySimilarName(String name);
 
-    @Query("SELECT * FROM Ninja WHERE name = :name")
+    @Query("SELECT * FROM ninja WHERE name = :name")
     Optional<Ninja> findByExactName(String name);
 
 }
