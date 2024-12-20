@@ -1,6 +1,7 @@
 package dev.kyky.NR.Services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,14 @@ public class UserService {
             return false;
         }
         userRepository.save(user.setHashedPassword(passwordEncoder.encode(user.password())));
+        return true;
+    }
+
+    public boolean loginUser(User user) {
+        Optional<User> userGetOne = userRepository.findByExactName(user.username());
+        if (userGetOne.isEmpty() || !passwordEncoder.matches(user.password(), userGetOne.get().password())) {
+            return false;
+        }
         return true;
     }
 

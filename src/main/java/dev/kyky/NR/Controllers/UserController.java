@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.kyky.NR.Exceptions.UserConflictException;
+import dev.kyky.NR.Exceptions.UserUnauthorizedException;
 import dev.kyky.NR.Models.User;
 import dev.kyky.NR.Services.UserService;
 import jakarta.validation.Valid;
@@ -34,6 +35,13 @@ public class UserController {
     void registerUser(@Valid @RequestBody User user) {
         if (!userService.registerUser(user)) {
             throw new UserConflictException();
+        }
+    }
+
+    @PostMapping("/login")
+    void loginUser(@Valid @RequestBody User user) {
+        if (!userService.loginUser(user)) {
+            throw new UserUnauthorizedException();
         }
     }
 
