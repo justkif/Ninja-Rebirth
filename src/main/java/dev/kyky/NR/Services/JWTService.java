@@ -5,7 +5,6 @@ import java.util.Date;
 
 import javax.crypto.SecretKey;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Jwts;
@@ -15,8 +14,7 @@ import io.jsonwebtoken.security.Keys;
 public class JWTService {
 
     private final SecretKey key;
-    private String secret = "NzgzOTc2MzMxZTIwMjg0ZDgxM2JjYzA1NzY5OGExZDI2M2NiMjUyZTEzNzhhY2JlMjkw";
-    private long expirationTime = 10800;
+    private final String secret = "NzgzOTc2MzMxZTIwMjg0ZDgxM2JjYzA1NzY5OGExZDI2M2NiMjUyZTEzNzhhY2JlMjkw";
 
     public JWTService() {
         this.key = Keys.hmacShaKeyFor(Base64.getEncoder().encode(secret.getBytes()));
@@ -27,7 +25,7 @@ public class JWTService {
         return Jwts.builder()
             .subject(username)
             .issuedAt(now)
-            .expiration(new Date(now.getTime() + expirationTime))
+            .expiration(new Date(now.getTime() + 10800))
             .signWith(key)
             .compact();
     }
