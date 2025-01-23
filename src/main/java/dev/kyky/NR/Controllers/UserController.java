@@ -12,11 +12,6 @@ import dev.kyky.NR.Models.User;
 import dev.kyky.NR.Services.UserService;
 import jakarta.validation.Valid;
 
-import java.util.List;
-
-import org.springframework.web.bind.annotation.GetMapping;
-
-
 @RestController
 @RequestMapping("/")
 public class UserController {
@@ -25,12 +20,7 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
-    }
-
-    @GetMapping("/user")
-    List<User> getAll() {
-        return userService.getAll();
-    }    
+    } 
 
     @PostMapping("/register")
     void registerUser(@Valid @RequestBody User user) {

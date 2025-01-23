@@ -1,6 +1,5 @@
 package dev.kyky.NR.Services;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,10 +20,6 @@ public class UserService {
         this.userRepository = userRepository;
         this.jwtService = jwtService;
         this.passwordEncoder = passwordEncoder;
-    }
-
-    public List<User> getAll() {
-        return userRepository.findAll();
     }
 
     public boolean registerUser(User user) {
