@@ -26,7 +26,7 @@ public class JWTFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         String token = request.getHeader("Token");
         if (token != null && !token.isEmpty()) {
-            var authentication = new UsernamePasswordAuthenticationToken(jwtService.decode(token).getSubject(), null);
+            var authentication = new UsernamePasswordAuthenticationToken(jwtService.decode(token).getSubject(), null, null);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);   
