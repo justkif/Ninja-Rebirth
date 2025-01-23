@@ -18,12 +18,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
-    @ExceptionHandler(NinjaConflictException.class)
+    @ExceptionHandler(UserConflictException.class)
     public ResponseEntity<String> handleUserConflict(UserConflictException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 
-    @ExceptionHandler(NinjaConflictException.class)
+    @ExceptionHandler(UserUnauthorizedException.class)
     public ResponseEntity<String> handleUserUnauthorized(UserUnauthorizedException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
     }
