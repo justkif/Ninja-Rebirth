@@ -30,7 +30,7 @@ public class JWTService {
         return Jwts.builder()
             .subject(username)
             .issuedAt(now)
-            .expiration(new Date(now.getTime() + 10800))
+            .expiration(new Date(now.getTime() + 10800 * 1000))
             .signWith(key, Jwts.SIG.HS256)
             .compact();
     }   
