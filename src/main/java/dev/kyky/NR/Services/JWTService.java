@@ -1,29 +1,27 @@
 package dev.kyky.NR.Services;
 
-import java.security.MessageDigest;
+import java.util.Base64;
 import java.util.Date;
 
-import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 
 @Service
 public class JWTService {
 
     @Value("${jwt.secret}")
     private String secret; 
-
-    public SecretKeySpec createKey(String secret) {
-        try {
-            return new SecretKeySpec(MessageDigest.getInstance("SHA-256").digest(secret.getBytes()),"AES");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+    private SecretKey key;
+    
+    @PostConstruct
+    public void init() {
+        key = Keys.hmacShaKeyFor(Base64.getEncoder().encode(secret.getBytes()));
     }
 
     public String generateToken(String username) {
@@ -32,8 +30,8 @@ public class JWTService {
             .subject(username)
             .issuedAt(now)
             .expiration(new Date(now.getTime() + 10800))
-            .encryptWith(createKey(secret), Jwts.ENC.A256GCM)
+            .signWith(key, Jwts.SIG.HS256)
             .compact();
-    }
+    }   
 
 }
