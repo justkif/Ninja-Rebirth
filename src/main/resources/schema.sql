@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS "ninja" (
     skill2 VARCHAR(255) NOT NULL,                
     skill3 VARCHAR(255) NOT NULL,                
     skill4 VARCHAR(255) NOT NULL,
+    picture TEXT NOT NULL,
     version INT     
 );
 

@@ -22,7 +22,10 @@ public record Ninja(
     String skill3,
 
     @NotEmpty 
-    String skill4
+    String skill4,
+
+    @NotEmpty
+    String picture
     
 ) {
 
@@ -33,7 +36,8 @@ public record Ninja(
             ninja.skill1, 
             ninja.skill2, 
             ninja.skill3, 
-            ninja.skill4
+            ninja.skill4,
+            this.picture
         );
     }
 
