@@ -14,3 +14,8 @@ CREATE TABLE IF NOT EXISTS "user" (
     password varchar(255) NOT NULL,
     version INT
 );
+
+CREATE TABLE IF NOT EXISTS "image" (
+    id SERIAL PRIMARY KEY,
+    data BYTEA
+);
