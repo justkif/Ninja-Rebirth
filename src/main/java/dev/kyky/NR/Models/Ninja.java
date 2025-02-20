@@ -25,9 +25,22 @@ public record Ninja(
     String skill4,
 
     @NotEmpty
-    String picture
+    String imageurl
     
 ) {
+
+    public Ninja createOne(String imageurl) {
+        return new Ninja(
+            this.id,
+            this.name,
+            this.skill1, 
+            this.skill2, 
+            this.skill3, 
+            this.skill4,
+            imageurl
+        );
+        
+    }
 
     public Ninja updateOne(Ninja ninja) {
         return new Ninja(
@@ -37,7 +50,7 @@ public record Ninja(
             ninja.skill2, 
             ninja.skill3, 
             ninja.skill4,
-            this.picture
+            this.imageurl
         );
     }
 
