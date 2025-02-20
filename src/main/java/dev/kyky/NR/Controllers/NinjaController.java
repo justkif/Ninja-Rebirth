@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import dev.kyky.NR.Exceptions.NinjaConflictException;
 import dev.kyky.NR.Exceptions.NinjaNotFoundException;
 import dev.kyky.NR.Models.Ninja;
+import dev.kyky.NR.Services.ImageService;
 import dev.kyky.NR.Services.NinjaService;
 import jakarta.validation.Valid;
 
@@ -26,9 +28,11 @@ import jakarta.validation.Valid;
 public class NinjaController {
 
     private final NinjaService ninjaService;
+    private final ImageService imageService;
 
-    public NinjaController(NinjaService ninjaService) {
+    public NinjaController(NinjaService ninjaService, ImageService imageService) {
         this.ninjaService = ninjaService;
+        this.imageService = imageService;
     }
 
     @GetMapping("")
@@ -60,9 +64,13 @@ public class NinjaController {
     
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
-    void createOne(@Valid @RequestBody Ninja ninja) {
-        if (!ninjaService.createOne(ninja)) {
-            throw new NinjaConflictException();
+    void createOne(@RequestParam("ninja") String ninjaJson, @RequestParam MultipartFile picture) {
+        try {
+            if (!ninjaService.createOne(imageService.createOne(ninjaJson, picture))) {
+                throw new NinjaConflictException();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -77,11 +85,16 @@ public class NinjaController {
 
     @DeleteMapping("/{id}")
     void deleteOne(@PathVariable Integer id) {
-        Optional<Ninja> ninjaGetOne = ninjaService.getOne(id);
-        if (ninjaGetOne.isEmpty()) {
-            throw new NinjaNotFoundException();
+        try {
+            Optional<Ninja> ninjaGetOne = ninjaService.getOne(id);
+            if (ninjaGetOne.isEmpty()) {
+                throw new NinjaNotFoundException();
+            }
+            imageService.deleteOne(ninjaGetOne.get().imageurl());
+            ninjaService.deleteOne(id);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
         }
-        ninjaService.deleteOne(id);
     }
 
 }
