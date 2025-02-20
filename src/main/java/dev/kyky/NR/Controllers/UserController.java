@@ -22,12 +22,12 @@ public class UserController {
         this.userService = userService;
     } 
 
-    @PostMapping("/register")
-    void registerUser(@Valid @RequestBody User user) {
-        if (!userService.registerUser(user)) {
-            throw new UserConflictException();
-        }
-    }
+    // @PostMapping("/register")
+    // void registerUser(@Valid @RequestBody User user) {
+    //     if (!userService.registerUser(user)) {
+    //         throw new UserConflictException();
+    //     }
+    // }
 
     @PostMapping("/login")
     JWT loginUser(@Valid @RequestBody User user) {
