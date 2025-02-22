@@ -3,8 +3,7 @@ package dev.kyky.NR.Exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
@@ -33,6 +32,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleMethodArgumentNotValidException() {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad Request.");
+    }
+
+    @ExceptionHandler(MissingServletRequestPartException.class)
+    public ResponseEntity<String> handleMissingServletRequestPartException() {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad Request.");
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<String> handleRuntimeException() {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad Request.");
     }
 

@@ -22,6 +22,7 @@ import dev.kyky.NR.Models.Ninja;
 import dev.kyky.NR.Services.ImageService;
 import dev.kyky.NR.Services.NinjaService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 
 @RestController
 @RequestMapping("/")
@@ -64,11 +65,13 @@ public class NinjaController {
     
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
-    void createOne(@RequestParam("ninja") String ninjaJson, @RequestParam MultipartFile picture) {
+    void createOne(@RequestParam(value = "ninja", required = false) @NotEmpty String ninjaJson, @RequestParam MultipartFile picture) {
         try {
             if (!ninjaService.createOne(imageService.createOne(ninjaJson, picture))) {
                 throw new NinjaConflictException();
             }
+        } catch (NinjaConflictException ninjaConflictException) {
+            throw ninjaConflictException;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
