@@ -1,5 +1,5 @@
 # Use Maven to build the application and OpenJDK to run it
-FROM maven:3.9.9-openjdk-22-slim as builder
+FROM maven:3.8.6-openjdk-22-slim as builder
 
 # Set the working directory for Maven build
 WORKDIR /build
