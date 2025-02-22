@@ -95,6 +95,8 @@ public class NinjaController {
             }
             imageService.deleteOne(ninjaGetOne.get().imageurl());
             ninjaService.deleteOne(id);
+        } catch (NinjaNotFoundException ninjaNotFoundException) {
+            throw ninjaNotFoundException;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
