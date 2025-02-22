@@ -1,5 +1,5 @@
 # Build stage
-FROM maven:3-openjdk-17 AS build
+FROM maven:3-openjdk-22 AS build
 WORKDIR /app
 
 # Copy the Maven project files
@@ -10,7 +10,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Run stage
-FROM openjdk:17-jdk-slim
+FROM openjdk:22-jdk-slim
 WORKDIR /app
 
 # Copy the built WAR file from the build stage
