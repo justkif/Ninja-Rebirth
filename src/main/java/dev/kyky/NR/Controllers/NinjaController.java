@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
 import dev.kyky.NR.Exceptions.NinjaConflictException;
 import dev.kyky.NR.Exceptions.NinjaNotFoundException;
@@ -66,9 +65,6 @@ public class NinjaController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
     void createOne(@RequestParam("ninja") String ninjaJson, @RequestParam MultipartFile picture) {
-        if (ninjaJson == null || ninjaJson.isEmpty() || picture == null || picture.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Ninja and picture field is required.");
-        }
         try {
             if (!ninjaService.createOne(imageService.createOne(ninjaJson, picture))) {
                 throw new NinjaConflictException();
