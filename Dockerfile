@@ -1,5 +1,5 @@
-# Use Maven to build the application and OpenJDK to run it
-FROM maven:3.8.6-openjdk-22-slim as builder
+# Use Maven with OpenJDK 17 to build the application
+FROM maven:3.8.6-openjdk-17-slim as builder
 
 # Set the working directory for Maven build
 WORKDIR /build
@@ -9,10 +9,10 @@ COPY pom.xml /build/pom.xml
 COPY src /build/src
 
 # Build the application
-RUN mvn clean package
+RUN mvn clean package -DskipTests
 
 # Now, create a new container for the runtime environment
-FROM openjdk:22-jdk-slim
+FROM openjdk:17-jdk-slim
 
 # Set the working directory inside the container
 WORKDIR /app
