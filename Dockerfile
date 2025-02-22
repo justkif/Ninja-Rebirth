@@ -1,27 +1,23 @@
-# Use Maven with OpenJDK 17 to build the application
-FROM maven:3.8.6-openjdk-17-slim as builder
-
-# Set the working directory for Maven build
-WORKDIR /build
-
-# Copy the pom.xml and source code to the build container
-COPY pom.xml /build/pom.xml
-COPY src /build/src
-
-# Build the application
-RUN mvn clean package -DskipTests
-
-# Now, create a new container for the runtime environment
-FROM openjdk:17-jdk-slim
-
-# Set the working directory inside the container
+# Build stage
+FROM maven:3-openjdk-17 AS build
 WORKDIR /app
 
-# Copy the JAR file from the build container
-COPY --from=builder /build/target/NR-0.0.1-SNAPSHOT.jar /app/NR.jar
+# Copy the Maven project files
+COPY pom.xml .
+COPY src ./src
 
-# Expose the port that your Spring Boot application will run on
-EXPOSE 10000
+# Run Maven to build the package (skip tests to speed up the build process)
+RUN mvn clean package -DskipTests
 
-# Command to run the Spring Boot application
-ENTRYPOINT ["java", "-jar", "/app/NR.jar"]
+# Run stage
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+
+# Copy the built WAR file from the build stage
+COPY --from=build /app/target/NR-0.0.1-SNAPSHOT.war NR.war
+
+# Expose port 8080 for the application
+EXPOSE 8080
+
+# Set the entry point to run the WAR file
+ENTRYPOINT ["java", "-jar", "NR.war"]
