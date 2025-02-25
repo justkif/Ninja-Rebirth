@@ -25,7 +25,7 @@ public class SecurityConfigurations {
                 var source = new org.springframework.web.cors.CorsConfiguration();
                 source.setAllowCredentials(true);
 
-                source.addAllowedOrigin("http://localhost:5173");
+                source.addAllowedOrigin("https://ninja-rebirth-front.vercel.app");
 
                 source.addAllowedMethod(HttpMethod.GET);
                 source.addAllowedMethod(HttpMethod.POST);
