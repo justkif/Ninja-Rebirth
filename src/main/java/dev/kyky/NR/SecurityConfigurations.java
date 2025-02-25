@@ -21,6 +21,23 @@ public class SecurityConfigurations {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+            .cors(cors -> cors.configurationSource(request -> {
+                var source = new org.springframework.web.cors.CorsConfiguration();
+                source.setAllowCredentials(true);
+
+                source.addAllowedOrigin("http://localhost:5173");
+
+                source.addAllowedMethod(HttpMethod.GET);
+                source.addAllowedMethod(HttpMethod.POST);
+                source.addAllowedMethod(HttpMethod.PUT);
+                source.addAllowedMethod(HttpMethod.DELETE);
+                source.addAllowedMethod(HttpMethod.OPTIONS);
+
+                source.addAllowedHeader("Content-Type");
+                source.addAllowedHeader("Token");
+
+                return source;
+            }))
             .csrf(csrf -> csrf.disable())
             .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
