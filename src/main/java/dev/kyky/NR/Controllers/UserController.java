@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.kyky.NR.Exceptions.UserConflictException;
 import dev.kyky.NR.Exceptions.UserUnauthorizedException;
 import dev.kyky.NR.Models.JWT;
 import dev.kyky.NR.Models.User;
