@@ -26,6 +26,7 @@ public class SecurityConfigurations {
                 source.setAllowCredentials(true);
 
                 source.addAllowedOrigin("https://ninja-rebirth-front.vercel.app");
+                source.addAllowedOrigin("https://localhost:5173");
 
                 source.addAllowedMethod(HttpMethod.GET);
                 source.addAllowedMethod(HttpMethod.POST);
